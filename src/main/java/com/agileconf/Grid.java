@@ -31,7 +31,7 @@ public class Grid {
         return Joiner.on(NEW_LINE).join(Lists.transform(cells, TO_CELL_STATE_STRING));
     }
 
-    public static Grid parse(String gridString) {
+    public static Grid from_string(String gridString) {
 
         String[] rows = gridString.split(NEW_LINE);
 

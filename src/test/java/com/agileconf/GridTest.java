@@ -20,7 +20,7 @@ public class GridTest {
 
     @Test
     public void gridFromString() {
-        Grid actual = Grid.parse(TWO_BY_TWO);
+        Grid actual = Grid.from_string(TWO_BY_TWO);
         assertThat(actual, equalTo(expectedTwoByTwo()));
     }
 
