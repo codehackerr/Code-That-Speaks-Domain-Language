@@ -2,7 +2,6 @@ package com.agileconf;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
@@ -11,14 +10,14 @@ import java.util.List;
 public class Grid {
     public static final String NEW_LINE = System.getProperty("line.separator");
 
-    public static final Function<Cells,String> TO_CELL_STATE_STRING = new Function<Cells, String>() {
-        public String apply(Cells cells) {
-            return cells.state();
+    public static final Function<GridRow,String> TO_CELL_STATE_STRING = new Function<GridRow, String>() {
+        public String apply(GridRow gridRow) {
+            return gridRow.state();
         }
     };
-    private List<Cells> cells;
+    private List<GridRow> cells;
 
-    Grid(List<Cells> cells) {
+    Grid(List<GridRow> cells) {
         this.cells = cells;
     }
 
@@ -36,22 +35,22 @@ public class Grid {
 
         String[] rows = gridString.split(NEW_LINE);
 
-        List<Cells> cellsGrid = new ArrayList<Cells>();
+        List<GridRow> grid_rows = new ArrayList<GridRow>();
         for (int rowSize = rows.length, rowIndex = 0; rowIndex < rowSize; rowIndex++) {
             String row = rows[rowIndex];
-            Cells cells = new Cells();
+            GridRow gridRow = new GridRow();
             char[] cellChars = row.toCharArray();
             for (int cellSize = cellChars.length, columnIndex = 0; columnIndex < cellSize; columnIndex++) {
                 Cell cell = new Cell(rowIndex, columnIndex, cellstate(cellChars[columnIndex]));
-                cells.add(cell);
+                gridRow.add(cell);
             }
 
-            cellsGrid.add(cells);
+            grid_rows.add(gridRow);
 
         }
 
 
-        return new Grid(cellsGrid);
+        return new Grid(grid_rows);
 
     }
 

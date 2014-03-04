@@ -8,8 +8,8 @@ import static com.google.common.base.Joiner.on;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 
-public class Cells extends ArrayList<Cell> {
-    public Cells(Cell... cells) {
+public class GridRow extends ArrayList<Cell> {
+    public GridRow(Cell... cells) {
         this.addAll(newArrayList(cells));
     }
 
