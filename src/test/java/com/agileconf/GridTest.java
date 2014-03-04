@@ -17,7 +17,6 @@ public class GridTest {
             "--" + NEW_LINE +
             "--";
 
-
     @Test
     public void gridFromString() {
         Grid actual = Grid.from_string(TWO_BY_TWO);

@@ -38,12 +38,8 @@ public class Grid {
         List<GridRow> grid_rows = new ArrayList<GridRow>();
         for (int rowSize = rows.length, rowIndex = 0; rowIndex < rowSize; rowIndex++) {
             String row = rows[rowIndex];
-            GridRow gridRow = new GridRow();
-            char[] cellChars = row.toCharArray();
-            for (int cellSize = cellChars.length, columnIndex = 0; columnIndex < cellSize; columnIndex++) {
-                Cell cell = new Cell(rowIndex, columnIndex, cellstate(cellChars[columnIndex]));
-                gridRow.add(cell);
-            }
+
+            GridRow gridRow = GridRow.from_row_string(rowIndex, row);
 
             grid_rows.add(gridRow);
 
@@ -54,7 +50,5 @@ public class Grid {
 
     }
 
-    private static boolean cellstate(Character character) {
-        return character.equals("x");
-    }
+
 }
