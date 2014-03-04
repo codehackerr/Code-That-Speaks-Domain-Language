@@ -1,14 +1,17 @@
 package com.agileconf;
 
 public class Cell {
+    public static final String DEAD = "-";
+    public static final String ALIVE = "x";
+
     private int x;
     private int y;
-    private boolean cellstate;
+    private boolean state;
 
-    public Cell(int x, int y, boolean cellstate) {
+    public Cell(int x, int y, boolean alive) {
         this.x = x;
         this.y = y;
-        this.cellstate = cellstate;
+        this.state = alive;
     }
 
     @Override
@@ -16,6 +19,10 @@ public class Cell {
         Cell other = (Cell) obj;
         return this.x == other.x &&
                this.y == other.y &&
-               this.cellstate == other.cellstate;
+               this.state == other.state;
+    }
+
+    public String state() {
+        return state? ALIVE : DEAD;
     }
 }

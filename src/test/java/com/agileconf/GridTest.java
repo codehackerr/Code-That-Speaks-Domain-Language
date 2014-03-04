@@ -5,19 +5,28 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.agileconf.Grid.NEW_LINE;
+import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
 public class GridTest {
 
+
     private static final String TWO_BY_TWO =
-            "--" +
+            "--" + NEW_LINE +
             "--";
 
+
     @Test
-    public void shouldParseGridString() {
-        Grid actual = Grid.parse(2, TWO_BY_TWO);
+    public void gridFromString() {
+        Grid actual = Grid.parse(TWO_BY_TWO);
         assertThat(actual, equalTo(expectedTwoByTwo()));
+    }
+
+    @Test
+    public void gridAsString(){
+        assertThat(expectedTwoByTwo().toString(),is(TWO_BY_TWO));
     }
 
     private Grid expectedTwoByTwo() {

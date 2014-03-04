@@ -1,21 +1,25 @@
 package com.agileconf;
 
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Grid {
-    private List<Cells> cells;
+    public static final String NEW_LINE = System.getProperty("line.separator");
 
-    public Grid(int size, String stillLife) {
-        Grid.parse(size, stillLife);
-    }
+    public static final Function<Cells,String> TO_CELL_STATE_STRING = new Function<Cells, String>() {
+        public String apply(Cells cells) {
+            return cells.state();
+        }
+    };
+    private List<Cells> cells;
 
     Grid(List<Cells> cells) {
         this.cells = cells;
-    }
-
-    public Grid tick() {
-        return new Grid(null);
     }
 
     @Override
@@ -23,9 +27,14 @@ public class Grid {
         return cells.equals(((Grid) obj).cells);
     }
 
-    public static Grid parse(int size, String gridString) {
+    @Override
+    public String toString() {
+        return Joiner.on(NEW_LINE).join(Lists.transform(cells, TO_CELL_STATE_STRING));
+    }
 
-        String[] rows = gridString.split("(?<=\\G.{" + size + "})");
+    public static Grid parse(String gridString) {
+
+        String[] rows = gridString.split(NEW_LINE);
 
         List<Cells> cellsGrid = new ArrayList<Cells>();
         for (int rowSize = rows.length, rowIndex = 0; rowIndex < rowSize; rowIndex++) {
