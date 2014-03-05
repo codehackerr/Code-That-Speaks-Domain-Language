@@ -1,4 +1,4 @@
-package com.agileconf;
+package com.gol;
 
 import org.junit.Test;
 

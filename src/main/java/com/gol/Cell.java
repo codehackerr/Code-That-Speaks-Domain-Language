@@ -1,4 +1,4 @@
-package com.agileconf;
+package com.gol;
 
 public class Cell {
     public static final String DEAD = "-";

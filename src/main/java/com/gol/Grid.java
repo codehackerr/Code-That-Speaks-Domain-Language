@@ -1,4 +1,4 @@
-package com.agileconf;
+package com.gol;
 
 import com.google.common.base.Function;
 
