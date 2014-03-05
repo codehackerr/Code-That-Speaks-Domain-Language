@@ -27,4 +27,9 @@ public class CellTest {
     public void alive(){
         assertThat(alive.state(), is("x"));
     }
+
+    @Test
+    public void die(){
+        assertThat(alive.die().dead(), is(true));
+    }
 }

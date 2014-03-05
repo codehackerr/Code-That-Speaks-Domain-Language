@@ -25,4 +25,12 @@ public class Cell {
     public String state() {
         return state? ALIVE : DEAD;
     }
+
+    public Cell die() {
+        return new Cell(this.x,this.y,false);
+    }
+
+    public boolean dead() {
+        return !this.state;
+    }
 }

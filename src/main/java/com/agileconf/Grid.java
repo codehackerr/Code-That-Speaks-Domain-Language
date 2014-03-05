@@ -1,12 +1,12 @@
 package com.agileconf;
 
 import com.google.common.base.Function;
-import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Joiner.on;
+import static com.google.common.collect.Lists.transform;
 
 public class Grid {
     public static final String NEW_LINE = System.getProperty("line.separator");
@@ -16,20 +16,20 @@ public class Grid {
             return gridRow.state();
         }
     };
-    private List<GridRow> gridCells;
+    private List<GridRow> gridRows;
 
-    Grid(List<GridRow> gridCells) {
-        this.gridCells = gridCells;
+    Grid(List<GridRow> gridRows) {
+        this.gridRows = gridRows;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return gridCells.equals(((Grid) obj).gridCells);
+        return gridRows.equals(((Grid) obj).gridRows);
     }
 
     @Override
     public String toString() {
-        return on(NEW_LINE).join(Lists.transform(gridCells, TO_CELL_STATE_STRING));
+        return on(NEW_LINE).join(transform(gridRows, TO_CELL_STATE_STRING));
     }
 
     public static Grid from_string(String gridString) {
@@ -51,4 +51,13 @@ public class Grid {
     }
 
 
+    public Grid next_generation() {
+        for (GridRow gridRow : gridRows) {
+            for (Cell cell : gridRow) {
+                cell.die();
+            }
+
+        }
+        return null;
+    }
 }
