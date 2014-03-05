@@ -8,16 +8,16 @@ import static com.google.common.base.Joiner.on;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 
-public class GridRow extends ArrayList<Cell> {
-    public GridRow(Cell... cells) {
+public class GridCells extends ArrayList<Cell> {
+    public GridCells(Cell... cells) {
         this.addAll(newArrayList(cells));
     }
 
-    static GridRow from_row_string(int rowIndex, String row) {
-        GridRow grid_row = new GridRow();
-        char[] cellChars = row.toCharArray();
-        for (int cellSize = cellChars.length, columnIndex = 0; columnIndex < cellSize; columnIndex++) {
-            Cell cell = new Cell(rowIndex, columnIndex, cellstate(cellChars[columnIndex]));
+    static GridCells from_string(int rowIndex, String cells_as_String) {
+        GridCells grid_row = new GridCells();
+        char[] cell_chars = cells_as_String.toCharArray();
+        for (int cell_size = cell_chars.length, columnIndex = 0; columnIndex < cell_size; columnIndex++) {
+            Cell cell = new Cell(rowIndex, columnIndex, cellstate(cell_chars[columnIndex]));
             grid_row.add(cell);
         }
         return grid_row;

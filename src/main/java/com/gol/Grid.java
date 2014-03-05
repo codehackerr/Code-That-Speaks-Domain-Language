@@ -11,14 +11,14 @@ import static com.google.common.collect.Lists.transform;
 public class Grid {
     public static final String NEW_LINE = System.getProperty("line.separator");
 
-    public static final Function<GridRow,String> TO_CELL_STATE_STRING = new Function<GridRow, String>() {
-        public String apply(GridRow gridRow) {
-            return gridRow.state();
+    public static final Function<GridCells,String> TO_CELL_STATE_STRING = new Function<GridCells, String>() {
+        public String apply(GridCells gridCells) {
+            return gridCells.state();
         }
     };
-    private List<GridRow> gridRows;
+    private List<GridCells> gridRows;
 
-    Grid(List<GridRow> gridRows) {
+    Grid(List<GridCells> gridRows) {
         this.gridRows = gridRows;
     }
 
@@ -36,11 +36,11 @@ public class Grid {
 
         String[] rows = gridString.split(NEW_LINE);
 
-        List<GridRow> grid_rows = new ArrayList<GridRow>();
+        List<GridCells> grid_rows = new ArrayList<GridCells>();
         for (int rowSize = rows.length, rowIndex = 0; rowIndex < rowSize; rowIndex++) {
             String row = rows[rowIndex];
 
-            GridRow gridRow = GridRow.from_row_string(rowIndex, row);
+            GridCells gridRow = GridCells.from_string(rowIndex, row);
 
             grid_rows.add(gridRow);
         }
@@ -52,7 +52,7 @@ public class Grid {
 
 
     public Grid next_generation() {
-        for (GridRow gridRow : gridRows) {
+        for (GridCells gridRow : gridRows) {
             for (Cell cell : gridRow) {
                 cell.die();
             }

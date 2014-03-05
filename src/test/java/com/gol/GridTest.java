@@ -29,10 +29,10 @@ public class GridTest {
     }
 
     private Grid expectedTwoByTwo() {
-        List<GridRow> cells = new ArrayList<GridRow>();
+        List<GridCells> cells = new ArrayList<GridCells>();
 
-        GridRow firstRow = new GridRow(newCell(0, 0), newCell(0, 1));
-        GridRow secondRow = new GridRow(newCell(1, 0), newCell(1, 1));
+        GridCells firstRow = new GridCells(newCell(0, 0), newCell(0, 1));
+        GridCells secondRow = new GridCells(newCell(1, 0), newCell(1, 1));
 
         cells.add(firstRow);
         cells.add(secondRow);

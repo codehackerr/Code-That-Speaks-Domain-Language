@@ -20,7 +20,7 @@ public class GameOfLifeRulesTest {
 
     @Test
     public void cell_with_less_than_two_live_neighbours(){
-        Grid grid = new Grid(Lists.<GridRow>newArrayList(new GridRow(lonelyCell)));
+        Grid grid = new Grid(Lists.<GridCells>newArrayList(new GridCells(lonelyCell)));
 
         grid.next_generation();
 
