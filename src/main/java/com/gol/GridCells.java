@@ -3,6 +3,7 @@ package com.gol;
 import com.google.common.base.Function;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import static com.google.common.base.Joiner.on;
 import static com.google.common.collect.Lists.newArrayList;
@@ -11,6 +12,10 @@ import static com.google.common.collect.Lists.transform;
 public class GridCells extends ArrayList<Cell> {
     public GridCells(Cell... cells) {
         this.addAll(newArrayList(cells));
+    }
+
+    public GridCells(Collection<Cell> cells) {
+        this.addAll(cells);
     }
 
     static GridCells from_string(int rowIndex, String cells_as_String) {
@@ -33,5 +38,9 @@ public class GridCells extends ArrayList<Cell> {
 
     private static boolean cellstate(Character character) {
         return character.equals("x");
+    }
+
+    public int count() {
+        return size();
     }
 }
