@@ -57,4 +57,8 @@ public class Cell {
     public Cell copy() {
         return new Cell(this.row_index, this.column_index, this.state);
     }
+
+    public boolean is_alive() {
+        return state;
+    }
 }

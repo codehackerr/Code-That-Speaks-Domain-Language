@@ -6,17 +6,12 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
-import static com.google.common.collect.Lists.newArrayList;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 public class GameOfLifeRulesTest {
-
-    @Mock
-    private Cell lonely_live_cell;
 
     private Cell cell_0_0;
     private Cell cell_0_1;
@@ -30,7 +25,6 @@ public class GameOfLifeRulesTest {
 
     @Before
     public void setUp() {
-        initMocks(this);
         this.cell_0_0 = new Cell(0, 0, true);
         this.cell_0_1 = new Cell(0, 1, false);
         this.cell_0_2 = new Cell(0, 2, false);
@@ -44,22 +38,36 @@ public class GameOfLifeRulesTest {
 
     @Test
     public void live_cell_with_less_than_two_live_neighbours() {
+
         Grid grid = new Grid(Lists.<GridCells>newArrayList(
-                new GridCells(lonely_live_cell)
+                new GridCells(cell_0_0)
         ));
 
-        grid.next_generation();
+        assertThat(cell_0_0, is(alive()));
 
-        verify(lonely_live_cell).die();
+        Grid next_generation = grid.next_generation();
+
+        assertThat(cell_0_0, is_dead_in(next_generation));
+    }
+
+    private Matcher<Cell> alive() {
+        return new BaseMatcher<Cell>() {
+            public boolean matches(Object cell_as_object) {
+                return ((Cell) cell_as_object).is_alive();
+            }
+
+            public void describeTo(Description description) {
+            }
+        };
     }
 
     @Test
     public void live_cell_with_two_live_neighbours() {
 
         Grid old_generation = new Grid(Lists.<GridCells>newArrayList(
-                new GridCells(cell_0_0, cell_0_1,cell_0_2),
-                new GridCells(cell_1_0,cell_1_1,cell_1_2),
-                new GridCells(cell_2_0,cell_2_1,cell_2_2)
+                new GridCells(cell_0_0, cell_0_1, cell_0_2),
+                new GridCells(cell_1_0, cell_1_1, cell_1_2),
+                new GridCells(cell_2_0, cell_2_1, cell_2_2)
 
         ));
 
@@ -75,6 +83,20 @@ public class GameOfLifeRulesTest {
             public boolean matches(Object cell_object) {
                 Cell cell = (Cell) cell_object;
                 return new_generation.contains(cell);
+            }
+
+            public void describeTo(Description description) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+        };
+    }
+
+    private Matcher<? super Cell> is_dead_in(final Grid new_generation) {
+        return new BaseMatcher<Cell>() {
+            public boolean matches(Object cell_object) {
+                Cell cell = (Cell) cell_object;
+                Cell dead_cell = cell.die();
+                return new_generation.contains(dead_cell);
             }
 
             public void describeTo(Description description) {
