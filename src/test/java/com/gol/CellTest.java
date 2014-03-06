@@ -68,4 +68,14 @@ public class CellTest {
     public void cell_on_the_next_row_immediately_below(){
         assertThat(new Cell(2,1,false).is_neighbour_of(one_cell),is(true));
     }
+
+    @Test
+    public void cell_on_the_next_row_more_than_unit_distance(){
+        assertThat(new Cell(2,3,false).is_neighbour_of(one_cell),is(false));
+    }
+
+    @Test
+    public void same_cell_is_not_a_neighbour(){
+        assertThat(new Cell(1,1,false).is_neighbour_of(one_cell),is(false));
+    }
 }
