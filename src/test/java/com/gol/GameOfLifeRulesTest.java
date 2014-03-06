@@ -62,5 +62,13 @@ public class GameOfLifeRulesTest {
         assertThat(cell_2_2, lives_on_to(new_generation));
     }
 
+    @Test
+    public void live_cell_with_three_live_neighbours() {
+
+        Grid new_generation = old_generation.next_generation();
+
+        assertThat(cell_1_1, lives_on_to(new_generation));
+    }
+
 
 }
