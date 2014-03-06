@@ -1,12 +1,11 @@
 package com.gol;
 
+import com.gol.matcher.CellMatchers;
 import com.google.common.collect.Lists;
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.gol.matcher.CellMatchers.alive;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -39,25 +38,14 @@ public class GameOfLifeRulesTest {
     public void live_cell_with_less_than_two_live_neighbours() {
 
         Grid grid = new Grid(Lists.<GridCells>newArrayList(
-                new GridCells(cell_0_0)
+                new GridCells(cell_0_0, cell_0_1)
         ));
 
         assertThat(cell_0_0, is(alive()));
 
         Grid next_generation = grid.next_generation();
 
-        assertThat(cell_0_0, is_dead_in(next_generation));
-    }
-
-    private Matcher<Cell> alive() {
-        return new BaseMatcher<Cell>() {
-            public boolean matches(Object cell_as_object) {
-                return ((Cell) cell_as_object).is_alive();
-            }
-
-            public void describeTo(Description description) {
-            }
-        };
+        assertThat(cell_0_0, CellMatchers.is_dead_in(next_generation));
     }
 
     @Test
@@ -72,36 +60,7 @@ public class GameOfLifeRulesTest {
 
         Grid new_generation = old_generation.next_generation();
 
-        assertThat(cell_1_1, lives_on_to(new_generation));
-
-    }
-
-
-    private Matcher<? super Cell> lives_on_to(final Grid new_generation) {
-        return new BaseMatcher<Cell>() {
-            public boolean matches(Object cell_object) {
-                Cell cell = (Cell) cell_object;
-                return new_generation.contains(cell);
-            }
-
-            public void describeTo(Description description) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-        };
-    }
-
-    private Matcher<? super Cell> is_dead_in(final Grid new_generation) {
-        return new BaseMatcher<Cell>() {
-            public boolean matches(Object cell_object) {
-                Cell cell = (Cell) cell_object;
-                Cell dead_cell = cell.die();
-                return new_generation.contains(dead_cell);
-            }
-
-            public void describeTo(Description description) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-        };
+        assertThat(cell_1_1, CellMatchers.lives_on_to(new_generation));
     }
 
 

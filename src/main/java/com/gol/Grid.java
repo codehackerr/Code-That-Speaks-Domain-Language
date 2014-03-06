@@ -68,12 +68,16 @@ public class Grid {
     private GridCells map_row(GridCells row) {
         GridCells mapped_row = new GridCells();
         for (Cell cell : row) {
-            if (live_neighbours_of(cell).count() < 2)
+            if (is_in_under_populated_area(cell))
                 mapped_row.add(cell.die());
             else
                 mapped_row.add(cell.copy());
         }
         return mapped_row;
+    }
+
+    private boolean is_in_under_populated_area(Cell cell) {
+        return live_neighbours_of(cell).count() < 2;
     }
 
     private GridCells live_neighbours_of(final Cell cell) {
