@@ -2,7 +2,6 @@ package com.gol;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,9 +47,7 @@ public class Grid {
             grid_rows.add(gridRow);
         }
 
-
         return new Grid(grid_rows);
-
     }
 
 
@@ -81,7 +78,16 @@ public class Grid {
     }
 
     private GridCells live_neighbours_of(final Cell cell) {
-        return map_cells_by(neighbour_of(cell));
+        GridCells neighbours = filter_by(neighbour_of(cell));
+        return live_cells(neighbours);
+    }
+
+    private GridCells live_cells(GridCells neighbours) {
+        return new GridCells(filter(neighbours, new Predicate<Cell>() {
+            public boolean apply(Cell cell) {
+                return cell.is_alive();
+            }
+        }));
     }
 
     private Predicate<Cell> neighbour_of(final Cell cell) {
@@ -92,7 +98,7 @@ public class Grid {
         };
     }
 
-    private GridCells map_cells_by(Predicate<Cell> predicate) {
+    private GridCells filter_by(Predicate<Cell> predicate) {
         return new GridCells(filter(all_cells(), predicate));
     }
 
