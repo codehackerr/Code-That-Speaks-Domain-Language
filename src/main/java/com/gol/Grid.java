@@ -9,7 +9,6 @@ import java.util.List;
 
 import static com.google.common.base.Joiner.on;
 import static com.google.common.collect.Collections2.filter;
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 
 public class Grid {
@@ -20,20 +19,20 @@ public class Grid {
             return gridRow.state();
         }
     };
-    private List<GridCells> gridRows;
+    private List<GridCells> rows;
 
-    Grid(List<GridCells> gridRows) {
-        this.gridRows = gridRows;
+    Grid(List<GridCells> rows) {
+        this.rows = rows;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return gridRows.equals(((Grid) obj).gridRows);
+        return rows.equals(((Grid) obj).rows);
     }
 
     @Override
     public String toString() {
-        return on(NEW_LINE).join(transform(gridRows, TO_CELL_STATE_STRING));
+        return on(NEW_LINE).join(transform(rows, TO_CELL_STATE_STRING));
     }
 
     public static Grid from_string(String gridString) {
@@ -57,23 +56,24 @@ public class Grid {
 
     public Grid next_generation() {
 
-        List<GridCells> new_generation = Lists.<GridCells>newArrayList();
-
-        for (GridCells gridRow : gridRows) {
-
-            GridCells mapped_row = new GridCells();
-            new_generation.add(mapped_row);
-
-            for (Cell cell : gridRow) {
-                if (live_neighbours_of(cell).count() < 2)
-                    mapped_row.add(cell.die());
-                else
-                    mapped_row.add(cell.copy());
+        List<GridCells> new_generation = transform(rows, new Function<GridCells, GridCells>() {
+            public GridCells apply(GridCells cells) {
+                return map_row(cells);
             }
-
-        }
+        });
 
         return new Grid(new_generation);
+    }
+
+    private GridCells map_row(GridCells row) {
+        GridCells mapped_row = new GridCells();
+        for (Cell cell : row) {
+            if (live_neighbours_of(cell).count() < 2)
+                mapped_row.add(cell.die());
+            else
+                mapped_row.add(cell.copy());
+        }
+        return mapped_row;
     }
 
     private GridCells live_neighbours_of(final Cell cell) {
@@ -94,13 +94,13 @@ public class Grid {
 
     private GridCells all_cells() {
         GridCells all_cells = new GridCells();
-        for (GridCells gridRow : gridRows) {
+        for (GridCells gridRow : rows) {
             all_cells.addAll(gridRow);
         }
         return all_cells;
     }
 
     public boolean contains(Cell cell) {
-        return this.gridRows.get(cell.row_index()).contains(cell);
+        return this.rows.get(cell.row_index()).contains(cell);
     }
 }
