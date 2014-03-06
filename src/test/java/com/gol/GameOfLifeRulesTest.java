@@ -4,9 +4,7 @@ import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.gol.matcher.CellMatchers.alive;
-import static com.gol.matcher.CellMatchers.is_dead_in;
-import static com.gol.matcher.CellMatchers.lives_on_to;
+import static com.gol.matcher.CellMatchers.*;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -68,7 +66,7 @@ public class GameOfLifeRulesTest {
 
         Grid next_generation = old_generation.next_generation();
 
-        assertThat(cell_0_0_l, is_dead_in(next_generation));
+        assertThat(cell_0_0_l, becomes_dead_in(next_generation));
     }
 
     @Test
@@ -92,7 +90,15 @@ public class GameOfLifeRulesTest {
 
         Grid new_generation = old_generation.next_generation();
 
-        assertThat(cell_1_1_l, is_dead_in(new_generation));
+        assertThat(cell_1_1_l, becomes_dead_in(new_generation));
+    }
+
+    @Test
+    public void dead_cell_with_exactly_three_live_neighbours() {
+
+        Grid new_generation = old_generation.next_generation();
+
+        assertThat(cell_0_1_d, becomes_live_in(new_generation));
     }
 
 

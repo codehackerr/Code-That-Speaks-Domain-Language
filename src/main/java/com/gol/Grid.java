@@ -67,11 +67,11 @@ public class Grid {
         for (Cell cell : row) {
             if (is_in_under_populated_area(cell)) {
                 mapped_row.add(cell.die());
-            } else if(is_in_over_populated_area(cell)){
+            } else if (is_in_over_populated_area(cell)) {
                 mapped_row.add(cell.die());
+            } else {
+                mapped_row.add(cell.live());
             }
-            else
-                mapped_row.add(cell.copy());
         }
         return mapped_row;
     }

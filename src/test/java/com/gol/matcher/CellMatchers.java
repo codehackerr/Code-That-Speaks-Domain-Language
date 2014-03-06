@@ -23,7 +23,7 @@ public class CellMatchers {
         return new BaseMatcher<Cell>() {
             public boolean matches(Object cell_object) {
                 Cell cell = (Cell) cell_object;
-                return new_generation.contains(cell);
+                return cell.is_alive() && new_generation.contains(cell);
             }
 
             public void describeTo(Description description) {
@@ -32,7 +32,20 @@ public class CellMatchers {
         };
     }
 
-    public static Matcher<? super Cell> is_dead_in(final Grid new_generation) {
+    public static Matcher<? super Cell> becomes_live_in(final Grid new_generation) {
+        return new BaseMatcher<Cell>() {
+            public boolean matches(Object cell_object) {
+                Cell cell = (Cell) cell_object;
+                Cell live_cell = cell.live();
+                return new_generation.contains(live_cell);
+            }
+
+            public void describeTo(Description description) {
+
+            }
+        };
+    }
+    public static Matcher<? super Cell> becomes_dead_in(final Grid new_generation) {
         return new BaseMatcher<Cell>() {
             public boolean matches(Object cell_object) {
                 Cell cell = (Cell) cell_object;

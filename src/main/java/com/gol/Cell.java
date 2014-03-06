@@ -42,7 +42,7 @@ public class Cell {
     }
 
     public boolean is_neighbour_of(Cell cell) {
-        return  !is_same_cell(cell) &&
+        return !is_same_cell(cell) &&
                 column_distance(cell) <= UNIT_CELL_DISTANCE &&
                 row_distance(cell) <= UNIT_CELL_DISTANCE;
     }
@@ -65,5 +65,9 @@ public class Cell {
 
     public boolean is_alive() {
         return state;
+    }
+
+    public Cell live() {
+        return new Cell(this.row_index, this.column_index, true);
     }
 }
