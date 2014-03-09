@@ -32,6 +32,27 @@ public class CellMatchers {
         };
     }
 
+    public static Matcher<? super Cell> stays_dead_in(final Grid new_generation) {
+        return new BaseMatcher<Cell>() {
+            public boolean matches(Object cell_object) {
+                Cell cell = (Cell) cell_object;
+                if (cell.is_alive()) {
+                    throw new AssertionError("stays_dead is valid only for a Dead Cell.");
+                }
+                return new_generation.contains(cell);
+            }
+
+            public void describeTo(Description description) {
+                 description.appendValue("Dead cell(-)");
+            }
+
+            @Override
+            public void describeMismatch(Object cell_object, Description description) {
+                description.appendValue( "but could not find");
+            }
+        };
+    }
+
     public static Matcher<? super Cell> becomes_live_in(final Grid new_generation) {
         return new BaseMatcher<Cell>() {
             public boolean matches(Object cell_object) {
@@ -45,6 +66,7 @@ public class CellMatchers {
             }
         };
     }
+
     public static Matcher<? super Cell> becomes_dead_in(final Grid new_generation) {
         return new BaseMatcher<Cell>() {
             public boolean matches(Object cell_object) {

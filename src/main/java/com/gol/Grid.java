@@ -18,6 +18,9 @@ public class Grid {
             return gridRow.state();
         }
     };
+    public static final int UNDER_POPULATION_THRESHOLD = 2;
+    public static final int OVER_POPULATION_THRESHOLD = 3;
+    public static final int RESURRECTION_THRESHOLD = 3;
     private List<GridCells> rows;
 
     Grid(List<GridCells> rows) {
@@ -65,23 +68,30 @@ public class Grid {
     private GridCells map_row(GridCells row) {
         GridCells mapped_row = new GridCells();
         for (Cell cell : row) {
-            if (is_in_under_populated_area(cell)) {
+            if (cell.is_alive() && is_in_under_populated_area(cell)) {
                 mapped_row.add(cell.die());
-            } else if (is_in_over_populated_area(cell)) {
+            } else if (cell.is_alive() && is_in_over_populated_area(cell)) {
                 mapped_row.add(cell.die());
-            } else {
+            } else if (cell.is_dead() && is_in_pleasant_conditions_to_resurrect(cell)) {
                 mapped_row.add(cell.live());
             }
+            mapped_row.add(cell.copy());
         }
         return mapped_row;
     }
 
+
+    private boolean is_in_pleasant_conditions_to_resurrect(Cell cell) {
+        return live_neighbours_of(cell).count() == RESURRECTION_THRESHOLD;
+    }
+
+
     private boolean is_in_over_populated_area(Cell cell) {
-        return live_neighbours_of(cell).count() > 3;
+        return live_neighbours_of(cell).count() > OVER_POPULATION_THRESHOLD;
     }
 
     private boolean is_in_under_populated_area(Cell cell) {
-        return live_neighbours_of(cell).count() < 2;
+        return live_neighbours_of(cell).count() < UNDER_POPULATION_THRESHOLD;
     }
 
     private GridCells live_neighbours_of(final Cell cell) {

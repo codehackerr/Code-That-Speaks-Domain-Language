@@ -9,12 +9,12 @@ public class Cell {
 
     private int row_index;
     private int column_index;
-    private boolean state;
+    private boolean alive;
 
     public Cell(int row_index, int column_index, boolean alive) {
         this.row_index = row_index;
         this.column_index = column_index;
-        this.state = alive;
+        this.alive = alive;
     }
 
     @Override
@@ -22,11 +22,11 @@ public class Cell {
         Cell other = (Cell) obj;
         return this.row_index == other.row_index &&
                 this.column_index == other.column_index &&
-                this.state == other.state;
+                this.alive == other.alive;
     }
 
     public String state() {
-        return state ? ALIVE : DEAD;
+        return alive ? ALIVE : DEAD;
     }
 
     public Cell die() {
@@ -34,7 +34,7 @@ public class Cell {
     }
 
     public boolean dead() {
-        return !this.state;
+        return !this.alive;
     }
 
     public int row_index() {
@@ -59,15 +59,19 @@ public class Cell {
         return abs(this.column_index - cell.column_index);
     }
 
-    public Cell copy() {
-        return new Cell(this.row_index, this.column_index, this.state);
-    }
-
     public boolean is_alive() {
-        return state;
+        return alive;
     }
 
     public Cell live() {
         return new Cell(this.row_index, this.column_index, true);
+    }
+
+    public boolean is_dead() {
+        return !is_alive();
+    }
+
+    public Cell copy() {
+        return new Cell(this.row_index, this.column_index, this.alive);
     }
 }
