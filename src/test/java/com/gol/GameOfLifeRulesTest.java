@@ -108,5 +108,12 @@ public class GameOfLifeRulesTest {
         assertThat(cell_1_3_d, stays_dead_in(new_generation));
     }
 
+    @Test
+    public void dead_cell_with_more_than_three_live_neighbours(){
+        Grid new_generation = old_generation.next_generation();
+
+        assertThat(cell_1_2_d, stays_dead_in(new_generation));
+    }
+
 
 }
