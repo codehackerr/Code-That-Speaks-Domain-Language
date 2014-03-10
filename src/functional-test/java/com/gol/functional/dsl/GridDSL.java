@@ -3,6 +3,8 @@ package com.gol.functional.dsl;
 import com.gol.Grid;
 import org.hamcrest.CoreMatchers;
 
+import java.util.Calendar;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -24,7 +26,7 @@ public class GridDSL {
         if (count == 0) return;
 
         Grid g = grid;
-        for (int generations = 0; generations == count; generations++) {
+        for (int generations = 0; generations < count; generations++) {
             g = g.next_generation();
         }
         this.next_generation = g;
@@ -50,4 +52,16 @@ public class GridDSL {
         return new GridDSL(pattern);
     }
 
+    public GridDSL becomes(final String pattern) {
+        this.deferred = new DeferredAssertion() {
+            public void execute() {
+                assertThat(next_generation.toString(), CoreMatchers.is(pattern));
+            }
+        };
+        return this;
+    }
+
+    public GridDSL returns_to(String pattern) {
+        return becomes(pattern);
+    }
 }

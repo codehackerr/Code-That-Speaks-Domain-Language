@@ -8,6 +8,7 @@ import java.util.List;
 
 import static com.google.common.base.Joiner.on;
 import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 
 public class Grid {
@@ -56,11 +57,11 @@ public class Grid {
 
     public Grid next_generation() {
 
-        List<GridCells> new_generation = transform(rows, new Function<GridCells, GridCells>() {
+        List<GridCells> new_generation = new ArrayList(transform(rows, new Function<GridCells, GridCells>() {
             public GridCells apply(GridCells cells) {
                 return map_row(cells);
             }
-        });
+        }));
 
         return new Grid(new_generation);
     }
@@ -74,8 +75,9 @@ public class Grid {
                 mapped_row.add(cell.die());
             } else if (cell.is_dead() && is_in_pleasant_conditions_to_resurrect(cell)) {
                 mapped_row.add(cell.live());
+            } else {
+                mapped_row.add(cell.copy());
             }
-            mapped_row.add(cell.copy());
         }
         return mapped_row;
     }
