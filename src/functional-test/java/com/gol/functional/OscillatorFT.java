@@ -23,11 +23,37 @@ public class OscillatorFT {
             "-----";
 
     @Test
-    public void blinker_period1() {
+    public void blinker_period_1() {
         a(BLINKER).becomes(BLINKER_PERIOD_1).after(1).generations();
     }
     @Test
-    public void blinker_period2() {
+    public void blinker_period_2() {
         a(BLINKER).returns_to(BLINKER).after(2).generations();
+    }
+
+    private static final String TOAD = "" +
+            "------" + NEW_LINE +
+            "------" + NEW_LINE +
+            "--xxx-" + NEW_LINE +
+            "-xxx--" + NEW_LINE +
+            "------" + NEW_LINE +
+            "------";
+   private static final String TOAD_PERIOD_1 = "" +
+            "------" + NEW_LINE +
+            "---x--" + NEW_LINE +
+            "-x--x-" + NEW_LINE +
+            "-x--x-" + NEW_LINE +
+            "--x---" + NEW_LINE +
+            "------";
+
+
+    @Test
+    public void toad_period_1() {
+        a(TOAD).becomes(TOAD_PERIOD_1).after(1).generations();
+    }
+
+    @Test
+    public void toad_period_2() {
+        a(TOAD).returns_to(TOAD).after(2).generations();
     }
 }
