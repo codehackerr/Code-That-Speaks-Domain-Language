@@ -8,14 +8,15 @@ public class OscillatorFT {
 
     private static final String NEW_LINE = System.getProperty("line.separator");
 
-    private static final String BLINKER = "" +
+    public static final String IDE_SPACER = "";
+    private static final String BLINKER = IDE_SPACER +
             "-----" + NEW_LINE +
             "-----" + NEW_LINE +
             "-xxx-" + NEW_LINE +
             "-----" + NEW_LINE +
             "-----";
 
-    private static final String BLINKER_PERIOD_1 = "" +
+    private static final String BLINKER_PERIOD_1 = IDE_SPACER +
             "-----" + NEW_LINE +
             "--x--" + NEW_LINE +
             "--x--" + NEW_LINE +
