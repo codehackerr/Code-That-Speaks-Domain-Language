@@ -4,7 +4,6 @@ package com.gol;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.gol.Cell.cell;
 import static com.gol.matcher.CellMatchers.is_neighbour_of;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
@@ -30,7 +29,7 @@ public class CellTest {
     @Before
     public void setUp() throws Exception {
         dead_cell = cell(0, 0);
-        live_cell = new Cell(0, 0, true);
+        live_cell = Cell.new_cell(0, 0, true);
         cell_1_1 = cell(1, 1);
     }
 
@@ -197,5 +196,10 @@ public class CellTest {
     @Test
     public void same_cell(){
         assertThat(cell_1_1, not(is_neighbour_of(cell_1_1)));
+    }
+
+
+    private Cell cell(int row, int column) {
+        return Cell.new_cell(row, column, false);
     }
 }

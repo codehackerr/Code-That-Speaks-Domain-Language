@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.gol.Cell.new_cell;
 import static com.gol.matcher.CellMatchers.*;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -30,25 +31,25 @@ public class GameOfLifeRulesTest {
 
     @Before
     public void setUp() {
-        this.cell_0_0_l = new Cell(0, 0, true);
-        this.cell_0_1_d = new Cell(0, 1, false);
-        this.cell_0_2_l = new Cell(0, 2, true);
-        this.cell_0_3_d = new Cell(0, 3, false);
+        this.cell_0_0_l = new_cell(0, 0, true);
+        this.cell_0_1_d = new_cell(0, 1, false);
+        this.cell_0_2_l = new_cell(0, 2, true);
+        this.cell_0_3_d = new_cell(0, 3, false);
 
-        this.cell_1_0_d = new Cell(1, 0, false);
-        this.cell_1_1_l = new Cell(1, 1, true);
-        this.cell_1_2_d = new Cell(1, 2, false);
-        this.cell_1_3_d = new Cell(1, 3, false);
+        this.cell_1_0_d = new_cell(1, 0, false);
+        this.cell_1_1_l = new_cell(1, 1, true);
+        this.cell_1_2_d = new_cell(1, 2, false);
+        this.cell_1_3_d = new_cell(1, 3, false);
 
-        this.cell_2_0_d = new Cell(2, 0, false);
-        this.cell_2_1_l = new Cell(2, 1, true);
-        this.cell_2_2_l = new Cell(2, 2, true);
-        this.cell_2_3_d = new Cell(2, 3, false);
+        this.cell_2_0_d = new_cell(2, 0, false);
+        this.cell_2_1_l = new_cell(2, 1, true);
+        this.cell_2_2_l = new_cell(2, 2, true);
+        this.cell_2_3_d = new_cell(2, 3, false);
 
-        this.cell_3_0_d = new Cell(3, 0, false);
-        this.cell_3_1_d = new Cell(3, 1, false);
-        this.cell_3_2_d = new Cell(3, 2, false);
-        this.cell_3_3_l = new Cell(3, 3, true);
+        this.cell_3_0_d = new_cell(3, 0, false);
+        this.cell_3_1_d = new_cell(3, 1, false);
+        this.cell_3_2_d = new_cell(3, 2, false);
+        this.cell_3_3_l = new_cell(3, 3, true);
 
         old_generation = new Grid(Lists.<GridCells>newArrayList(
                 new GridCells(cell_0_0_l, cell_0_1_d, cell_0_2_l, cell_0_3_d),
