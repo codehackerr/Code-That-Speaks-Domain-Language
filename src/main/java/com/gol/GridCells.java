@@ -33,7 +33,7 @@ public class GridCells extends ArrayList<Cell> {
     public String state() {
         return on("").join(transform(this, new Function<Cell, String>() {
             public String apply(Cell cell) {
-                return cell.state();
+                return cell.state_string();
             }
         }));
     }

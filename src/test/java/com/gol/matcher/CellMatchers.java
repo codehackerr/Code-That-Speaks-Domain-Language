@@ -5,6 +5,7 @@ import com.gol.Grid;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 
 
 public class CellMatchers {
@@ -77,6 +78,26 @@ public class CellMatchers {
 
             public void describeTo(Description description) {
 
+            }
+        };
+    }
+
+    public static  Matcher<? super Cell> is_neighbour_of(final Cell one_cell){
+        return new TypeSafeMatcher<Cell>() {
+            private Cell matched;
+            public void describeTo(Description description) {
+                description.appendText(matched.toString()).appendText(" to be neighbour of ").appendText(one_cell.toString());
+            }
+
+            @Override
+            protected boolean matchesSafely(Cell cell) {
+                this.matched = cell;
+                return this.matched.is_neighbour_of(one_cell);
+            }
+
+            @Override
+            protected void describeMismatchSafely(Cell item, Description mismatchDescription) {
+                mismatchDescription.appendText(" was not a neighbour");
             }
         };
     }

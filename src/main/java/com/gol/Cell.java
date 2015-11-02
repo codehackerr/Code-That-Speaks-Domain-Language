@@ -17,6 +17,10 @@ public class Cell {
         this.alive = alive;
     }
 
+    static Cell cell(int row_index, int column_index) {
+        return new Cell(row_index, column_index, false);
+    }
+
     @Override
     public boolean equals(Object obj) {
         Cell other = (Cell) obj;
@@ -25,16 +29,12 @@ public class Cell {
                 this.alive == other.alive;
     }
 
-    public String state() {
+    public String state_string() {
         return alive ? ALIVE : DEAD;
     }
 
     public Cell die() {
         return new Cell(this.row_index, this.column_index, false);
-    }
-
-    public boolean dead() {
-        return !this.alive;
     }
 
     public int row_index() {
