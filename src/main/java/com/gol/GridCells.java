@@ -24,7 +24,7 @@ public class GridCells extends ArrayList<Cell> {
         GridCells grid_row = new GridCells();
         char[] cell_chars = cells_as_String.toCharArray();
         for (int cell_size = cell_chars.length, columnIndex = 0; columnIndex < cell_size; columnIndex++) {
-            Cell cell = Cell.new_cell(rowIndex, columnIndex, isLive(cell_chars[columnIndex]));
+            Cell cell = Cell.from_string(rowIndex, columnIndex, cell_chars[columnIndex]);
             grid_row.add(cell);
         }
         return grid_row;
@@ -33,14 +33,9 @@ public class GridCells extends ArrayList<Cell> {
     public String state() {
         return on("").join(transform(this, new Function<Cell, String>() {
             public String apply(Cell cell) {
-                return cell.state_string();
+                return cell.state().toString();
             }
         }));
-    }
-
-    private static boolean isLive(char character) {
-        boolean isLive = character == LIVE_STATE;
-        return isLive;
     }
 
     public int count() {

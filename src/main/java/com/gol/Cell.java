@@ -1,19 +1,34 @@
 package com.gol;
 
+import com.google.common.base.Predicate;
+
 import static java.lang.Math.abs;
 
 public class Cell {
-    public static final String DEAD = "-";
-    public static final String ALIVE = "x";
+    public static final char DEAD = '-';
+    public static final char ALIVE = 'x';
     public static final int UNIT_CELL_DISTANCE = 1;
+    public static final Predicate<Cell> IS_LIVE = new Predicate<Cell>() {
+        public boolean apply(Cell cell) {
+            return cell.is_alive();
+        }
+    };
 
     private int row_index;
     private int column_index;
     private boolean alive;
 
-    static Cell new_cell(int row_index, int column_index, boolean alive) {
-        return new Cell(row_index, column_index, alive);
+
+
+    Predicate<Cell> neighbour_of() {
+        return new Predicate<Cell>() {
+            public boolean apply(Cell c) {
+                return c.is_neighbour_of(Cell.this);
+            }
+        };
     }
+
+
 
     @Override
     public boolean equals(Object obj) {
@@ -26,7 +41,7 @@ public class Cell {
         return this.row_index == other.row_index;
     }
 
-    public String state_string() {
+    public Character state() {
         return alive ? ALIVE : DEAD;
     }
 
@@ -60,6 +75,15 @@ public class Cell {
         return new_cell(this.row_index, this.column_index, this.alive);
     }
 
+    static Cell new_cell(int row_index, int column_index, boolean alive) {
+        return new Cell(row_index, column_index, alive);
+    }
+
+
+    static Cell from_string(int rowIndex, int columnIndex, char state) {
+        return new_cell(rowIndex, columnIndex, is_live(state));
+    }
+
     private boolean is_at_the_same_position_as(Cell other) {
         return this.is_in_same_row_as(other) &&
                 this.is_in_the_same_column_as(other);
@@ -89,5 +113,13 @@ public class Cell {
         this.row_index = row_index;
         this.column_index = column_index;
         this.alive = alive;
+    }
+
+
+
+
+    static boolean is_live(char character) {
+        boolean isLive = character == Cell.ALIVE;
+        return isLive;
     }
 }

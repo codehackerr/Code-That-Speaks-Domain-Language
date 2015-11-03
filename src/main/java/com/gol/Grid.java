@@ -69,17 +69,16 @@ public class Grid {
     private GridCells map_row(GridCells row) {
         GridCells mapped_row = new GridCells();
         for (Cell cell : row) {
-            if (cell.is_alive() && is_in_under_populated_area(cell)) {
-                mapped_row.add(cell.die());
-            } else if (cell.is_alive() && is_in_over_populated_area(cell)) {
-                mapped_row.add(cell.die());
-            } else if (cell.is_dead() && is_in_pleasant_conditions_to_resurrect(cell)) {
-                mapped_row.add(cell.live());
-            } else {
-                mapped_row.add(cell.copy());
-            }
+            mapped_row.add(map_cell(cell));
         }
         return mapped_row;
+    }
+
+    private Cell map_cell(Cell cell) {
+        if (cell.is_alive() && is_in_under_populated_area(cell)) return cell.die();
+        else if (cell.is_alive() && is_in_over_populated_area(cell)) return cell.die();
+        else if (cell.is_dead() && is_in_pleasant_conditions_to_resurrect(cell)) return cell.live();
+        else return cell.copy();
     }
 
 
@@ -97,24 +96,13 @@ public class Grid {
     }
 
     private GridCells live_neighbours_of(final Cell cell) {
-        GridCells neighbours = filter_by(neighbour_of(cell));
+        GridCells neighbours = filter_by(cell.neighbour_of());
         return live_cells(neighbours);
     }
 
-    private GridCells live_cells(GridCells neighbours) {
-        return new GridCells(filter(neighbours, new Predicate<Cell>() {
-            public boolean apply(Cell cell) {
-                return cell.is_alive();
-            }
-        }));
-    }
+    private GridCells live_cells(GridCells cells) {
+        return new GridCells(filter(cells, Cell.IS_LIVE));
 
-    private Predicate<Cell> neighbour_of(final Cell cell) {
-        return new Predicate<Cell>() {
-            public boolean apply(Cell c) {
-                return c.is_neighbour_of(cell);
-            }
-        };
     }
 
     private GridCells filter_by(Predicate<Cell> predicate) {

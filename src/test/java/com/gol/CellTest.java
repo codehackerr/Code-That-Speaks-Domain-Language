@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import static com.gol.matcher.CellMatchers.is_neighbour_of;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 
@@ -35,12 +36,12 @@ public class CellTest {
 
     @Test
     public void dead_cell(){
-        assertThat(dead_cell.state_string(), is("-"));
+        assertThat(dead_cell.state(), is('-'));
     }
 
     @Test
     public void live_cell(){
-        assertThat(live_cell.state_string(), is("x"));
+        assertThat(live_cell.state(), is('x'));
     }
 
     @Test
@@ -196,6 +197,11 @@ public class CellTest {
     @Test
     public void same_cell(){
         assertThat(cell_1_1, not(is_neighbour_of(cell_1_1)));
+    }
+
+    @Test
+    public void from_string(){
+        assertThat(Cell.from_string(0,0,'-'), isA(Cell.class));
     }
 
 
