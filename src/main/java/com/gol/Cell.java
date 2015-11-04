@@ -116,9 +116,7 @@ public class Cell {
     }
 
 
-
-
-    static boolean is_live(char character) {
+    private static boolean is_live(char character) {
         boolean isLive = character == Cell.ALIVE;
         return isLive;
     }

@@ -1,13 +1,12 @@
 package com.gol;
 
 import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Joiner.on;
-import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 
@@ -28,6 +27,17 @@ public class Grid {
         this.rows = rows;
     }
 
+    public Grid next_generation() {
+
+        List<GridCells> new_generation = new ArrayList(transform(rows, new Function<GridCells, GridCells>() {
+            public GridCells apply(GridCells cells) {
+                return map_row(cells);
+            }
+        }));
+
+        return new Grid(new_generation);
+    }
+
     @Override
     public boolean equals(Object obj) {
         return rows.equals(((Grid) obj).rows);
@@ -38,32 +48,28 @@ public class Grid {
         return on(NEW_LINE).join(transform(rows, TO_CELL_STATE_STRING));
     }
 
-    public static Grid from_string(String gridString) {
+    public static Grid from_string(String grid_string) {
 
-        String[] rows = gridString.split(NEW_LINE);
+        String[] rows_as_string = split_by_row_boundary(grid_string);
 
         List<GridCells> grid_rows = new ArrayList<GridCells>();
-        for (int rowSize = rows.length, rowIndex = 0; rowIndex < rowSize; rowIndex++) {
-            String row = rows[rowIndex];
 
-            GridCells gridRow = GridCells.from_string(rowIndex, row);
-
-            grid_rows.add(gridRow);
+        for (int row_size = rows_as_string.length, rowIndex = 0; rowIndex < row_size; rowIndex++) {
+            GridCells grid_row = map_row(rows_as_string, rowIndex);
+            grid_rows.add(grid_row);
         }
 
         return new Grid(grid_rows);
     }
 
+    private static GridCells map_row(String[] rows, int row_index) {
+        String row = rows[row_index];
+        return GridCells.from_string(row_index, row);
+    }
 
-    public Grid next_generation() {
 
-        List<GridCells> new_generation = new ArrayList(transform(rows, new Function<GridCells, GridCells>() {
-            public GridCells apply(GridCells cells) {
-                return map_row(cells);
-            }
-        }));
-
-        return new Grid(new_generation);
+    private static String[] split_by_row_boundary(String gridString) {
+        return gridString.split(NEW_LINE);
     }
 
     private GridCells map_row(GridCells row) {
@@ -96,28 +102,16 @@ public class Grid {
     }
 
     private GridCells live_neighbours_of(final Cell cell) {
-        GridCells neighbours = filter_by(cell.neighbour_of());
-        return live_cells(neighbours);
+        GridCells all_cells = this.flatten();
+        GridCells neighbours = all_cells.filter_by(cell.neighbour_of());
+        return neighbours.live_cells();
     }
 
-    private GridCells live_cells(GridCells cells) {
-        return new GridCells(filter(cells, Cell.IS_LIVE));
-
-    }
-
-    private GridCells filter_by(Predicate<Cell> predicate) {
-        return new GridCells(filter(all_cells(), predicate));
-    }
-
-    private GridCells all_cells() {
-        GridCells all_cells = new GridCells();
-        for (GridCells gridRow : rows) {
-            all_cells.addAll(gridRow);
-        }
-        return all_cells;
+    private GridCells flatten() {
+        return new GridCells(newArrayList(concat(rows)));
     }
 
     public boolean contains(Cell cell) {
-        return this.rows.get(cell.row_index()).contains(cell);
+        return this.flatten().contains(cell);
     }
 }
