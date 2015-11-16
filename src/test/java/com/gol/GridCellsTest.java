@@ -3,9 +3,8 @@ package com.gol;
 import com.google.common.base.Predicate;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InOrder;
 
-import static com.gol.Cell.new_cell;
+import static com.gol.Cell.from_string;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
@@ -19,8 +18,8 @@ public class GridCellsTest {
 
     @Before
     public void setUp() throws Exception {
-        live_cell = new_cell(0, 1, true);
-        dead_cell = new_cell(0, 0, false);
+        live_cell = from_string(0, 1, 'x');
+        dead_cell = from_string(0, 0, '_');
         cells = new GridCells(dead_cell, live_cell);
     }
 

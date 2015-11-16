@@ -30,7 +30,7 @@ public class CellTest {
     @Before
     public void setUp() throws Exception {
         dead_cell = cell(0, 0);
-        live_cell = Cell.new_cell(0, 0, true);
+        live_cell = Cell.from_string(0, 0, 'x');
         cell_1_1 = cell(1, 1);
     }
 
@@ -206,6 +206,6 @@ public class CellTest {
 
 
     private Cell cell(int row, int column) {
-        return Cell.new_cell(row, column, false);
+        return Cell.from_string(row, column, '_');
     }
 }

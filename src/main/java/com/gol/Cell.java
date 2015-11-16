@@ -46,11 +46,7 @@ public class Cell {
     }
 
     public Cell die() {
-        return new_cell(this.row_index, this.column_index, false);
-    }
-
-    public int row_index() {
-        return row_index;
+        return new_dead_cell(this.row_index, this.column_index);
     }
 
     public boolean is_neighbour_of(Cell cell) {
@@ -64,7 +60,7 @@ public class Cell {
     }
 
     public Cell live() {
-        return new_cell(this.row_index, this.column_index, true);
+        return new_live_cell(this.row_index, this.column_index);
     }
 
     public boolean is_dead() {
@@ -72,22 +68,18 @@ public class Cell {
     }
 
     public Cell copy() {
-        return new_cell(this.row_index, this.column_index, this.alive);
+        return new Cell(this.row_index, this.column_index, this.alive);
     }
-
-    static Cell new_cell(int row_index, int column_index, boolean alive) {
-        return new Cell(row_index, column_index, alive);
-    }
-
 
     static Cell from_string(int rowIndex, int columnIndex, char state) {
-        return new_cell(rowIndex, columnIndex, is_live(state));
+        return new Cell(rowIndex, columnIndex, is_live(state));
     }
 
     private boolean is_at_the_same_position_as(Cell other) {
         return this.is_in_same_row_as(other) &&
                 this.is_in_the_same_column_as(other);
     }
+
 
     private boolean has_the_same_life_state_as(Cell other) {
         return this.alive == other.alive;
@@ -107,6 +99,14 @@ public class Cell {
 
     private int column_distance(Cell cell) {
         return abs(this.column_index - cell.column_index);
+    }
+
+    private static Cell new_dead_cell(int row_index, int column_index) {
+        return new Cell(row_index, column_index, false);
+    }
+
+    private static Cell new_live_cell(int row_index, int column_index) {
+        return new Cell(row_index, column_index, true);
     }
 
     private Cell(int row_index, int column_index, boolean alive) {

@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.gol.Cell.new_cell;
+import static com.gol.Cell.from_string;
 import static com.gol.Grid.NEW_LINE;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -32,13 +32,17 @@ public class GridTest {
     private Grid expectedTwoByTwo() {
         List<GridCells> cells = new ArrayList<GridCells>();
 
-        GridCells firstRow = new GridCells(new_cell(0, 0, false), new_cell(0, 1, false));
-        GridCells secondRow = new GridCells(new_cell(1, 0, false), new_cell(1, 1, false));
+        GridCells firstRow = new GridCells(cell(0, 0), cell(0, 1));
+        GridCells secondRow = new GridCells(cell(1, 0), cell(1, 1));
 
         cells.add(firstRow);
         cells.add(secondRow);
 
         return new Grid(cells);
+    }
+
+    private Cell cell(int row_index, int column_index) {
+        return from_string(row_index, column_index, '_');
     }
 
 }
