@@ -81,10 +81,26 @@ public class Grid {
     }
 
     private Cell map_cell(Cell cell) {
-        if (cell.is_alive() && is_in_under_populated_area(cell)) return cell.die();
-        else if (cell.is_alive() && is_in_over_populated_area(cell)) return cell.die();
-        else if (cell.is_dead() && is_in_pleasant_conditions_to_resurrect(cell)) return cell.live();
-        else return cell.copy();
+        if (cell.is_alive() && is_in_under_populated_area(cell)) return apply_under_population_rule_for_live_cell(cell);
+        else if (cell.is_alive() && is_in_over_populated_area(cell)) return apply_over_population_rule_for_live_cell(cell);
+        else if (cell.is_dead() && is_in_pleasant_conditions_to_resurrect(cell)) return apply_resurrection_rule_for_dead_cell(cell);
+        else return apply_no_change_rule(cell);
+    }
+
+    private Cell apply_no_change_rule(Cell cell) {
+        return cell.copy();
+    }
+
+    private Cell apply_resurrection_rule_for_dead_cell(Cell cell) {
+        return cell.live();
+    }
+
+    private Cell apply_over_population_rule_for_live_cell(Cell cell) {
+        return cell.die();
+    }
+
+    private Cell apply_under_population_rule_for_live_cell(Cell cell) {
+        return cell.die();
     }
 
 
