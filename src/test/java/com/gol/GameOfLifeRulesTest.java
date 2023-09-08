@@ -51,6 +51,7 @@ public class GameOfLifeRulesTest {
         this.cell_3_2_d = from_string(3, 2, '_');
         this.cell_3_3_l = from_string(3, 3, 'x');
 
+
         old_generation = new Grid(Lists.<GridCells>newArrayList(
                 new GridCells(cell_0_0_l, cell_0_1_d, cell_0_2_l, cell_0_3_d),
                 new GridCells(cell_1_0_d, cell_1_1_l, cell_1_2_d, cell_1_3_d),
@@ -63,13 +64,13 @@ public class GameOfLifeRulesTest {
     @Test
     public void live_cell_with_less_than_two_live_neighbours() {
 
-        Cell live_cell_with_less_than_two_two_live_neighbours = this.cell_0_0_l;
+        Cell live_cell_with_fewer_than_two_live_neighbours = this.cell_0_0_l;
 
-        assertThat(live_cell_with_less_than_two_two_live_neighbours, is(alive()));
+        assertThat(live_cell_with_fewer_than_two_live_neighbours, is(alive()));
 
         Grid next_generation = old_generation.next_generation();
 
-        assertThat(live_cell_with_less_than_two_two_live_neighbours, becomes_dead_in(next_generation));
+        assertThat( live_cell_with_fewer_than_two_live_neighbours, dies_of_under_population(next_generation));
     }
 
     @Test
@@ -99,7 +100,7 @@ public class GameOfLifeRulesTest {
 
         Grid new_generation = old_generation.next_generation();
 
-        assertThat(live_cell_with_more_than_three_neighbours, becomes_dead_in(new_generation));
+        assertThat(live_cell_with_more_than_three_neighbours, dies_of_over_crowding(new_generation));
     }
 
     @Test

@@ -68,12 +68,20 @@ public class CellMatchers {
         };
     }
 
-    public static Matcher<? super Cell> becomes_dead_in(final Grid new_generation) {
+    public static Matcher<? super Cell> dies_of_under_population(final Grid next_generation) {
+        return dies(next_generation);
+    }
+
+    public static Matcher<? super Cell> dies_of_over_crowding(final Grid next_generation) {
+        return dies(next_generation);
+    }
+
+    public static Matcher<? super Cell> dies(final Grid next_generation) {
         return new BaseMatcher<Cell>() {
             public boolean matches(Object cell_object) {
                 Cell cell = (Cell) cell_object;
                 Cell dead_cell = cell.die();
-                return new_generation.contains(dead_cell);
+                return next_generation.contains(dead_cell);
             }
 
             public void describeTo(Description description) {
