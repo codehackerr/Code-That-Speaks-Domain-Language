@@ -78,9 +78,9 @@ public class GameOfLifeRulesTest {
 
         Cell live_cell_with_two_live_neighbours = this.cell_2_1_l;
 
-        Grid new_generation = old_generation.next_generation();
+        Grid next_generation = old_generation.next_generation();
 
-        assertThat(live_cell_with_two_live_neighbours, lives_on_to(new_generation));
+        assertThat(live_cell_with_two_live_neighbours, lives_on_to(next_generation));
     }
 
     @Test
@@ -88,19 +88,19 @@ public class GameOfLifeRulesTest {
 
         Cell live_cell_with_three_live_neighbours = this.cell_2_2_l;
 
-        Grid new_generation = old_generation.next_generation();
+        Grid next_generation = old_generation.next_generation();
 
-        assertThat(live_cell_with_three_live_neighbours, lives_on_to(new_generation));
+        assertThat(live_cell_with_three_live_neighbours, lives_on_to(next_generation));
     }
 
     @Test
     public void live_cell_with_more_than_three_live_neighbours() {
 
-        Cell live_cell_with_more_than_three_neighbours = this.cell_1_1_l;
+        Cell live_cell_with_more_than_three_live_neighbours = this.cell_1_1_l;
 
-        Grid new_generation = old_generation.next_generation();
+        Grid next_generation = old_generation.next_generation();
 
-        assertThat(live_cell_with_more_than_three_neighbours, dies_of_overcrowding(new_generation));
+        assertThat(live_cell_with_more_than_three_live_neighbours, dies_of_overpopulation(next_generation));
     }
 
     @Test
@@ -108,27 +108,27 @@ public class GameOfLifeRulesTest {
 
         Cell dead_cell_with_exactly_three_live_neighbours = this.cell_0_1_d;
 
-        Grid new_generation = old_generation.next_generation();
+        Grid next_generation = old_generation.next_generation();
 
-        assertThat(dead_cell_with_exactly_three_live_neighbours, becomes_live_in(new_generation));
+        assertThat(dead_cell_with_exactly_three_live_neighbours, becomes_live_in(next_generation));
     }
 
     @Test
     public void dead_cell_with_less_than_three_live_neighbours(){
         Cell dead_cell_with_less_than_three_live_neighbours = this.cell_1_3_d;
 
-        Grid new_generation = old_generation.next_generation();
+        Grid next_generation = old_generation.next_generation();
 
-        assertThat(dead_cell_with_less_than_three_live_neighbours, stays_dead_in(new_generation));
+        assertThat(dead_cell_with_less_than_three_live_neighbours, stays_dead_in(next_generation));
     }
 
     @Test
     public void dead_cell_with_more_than_three_live_neighbours(){
         Cell dead_cell_with_more_than_three_live_neighbours = this.cell_1_2_d;
 
-        Grid new_generation = old_generation.next_generation();
+        Grid next_generation = old_generation.next_generation();
 
-        assertThat(dead_cell_with_more_than_three_live_neighbours, stays_dead_in(new_generation));
+        assertThat(dead_cell_with_more_than_three_live_neighbours, stays_dead_in(next_generation));
     }
 
 

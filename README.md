@@ -37,19 +37,19 @@ Here are some Domain Rules copied from the above link and corresponding code sni
 
 `Any live cell with fewer than two live neighbours dies, as if by underpopulation.`
 ```java 
-assertThat( live_cell_with_fewer_than_two_live_neighbours, dies_of_under_population(next_generation));
+assertThat( live_cell_with_fewer_than_two_live_neighbours, dies_of_underpopulation(next_generation));
 ```
 `Any live cell with two or three live neighbours lives on to the next generation.`
 ```java
-assertThat(live_cell_with_two_live_neighbours, lives_on_to(new_generation));
-assertThat(live_cell_with_three_live_neighbours, lives_on_to(new_generation));
+assertThat(live_cell_with_two_live_neighbours, lives_on_to(nex_generation));
+assertThat(live_cell_with_three_live_neighbours, lives_on_to(next_generation));
 ```
 
 More examples of domain specific matchers see `GameOfLifeRulesTest.java`
 
 
 ```Java
-/** A functional test Using Fluent Interfaces*/
+/** A system behavior specification using Fluent Interfaces*/
 a(BLOCK).remains_unchanged().after(1).generations();
 ```
 
@@ -61,9 +61,10 @@ While both these examples are implemented in tests, the concepts are equally app
 #### Naming
 - Name variables, classes, methods using domain vocabulary.
 - Biggest ROI and applicable irrespective of language context.
+- Need to be conscious to use the domain terminology. It's easy your interpretations than the actual domain. Eg: I used overcrowding for overpopulation
 #### Aliasing
 - Use aliases to create rich domain vocabulary.
-- Language specific nuances. `Ruby` has method aliasing, while `Java` needs a wrapper method. 
+- There are language nuances. `Ruby` has method aliasing, while `Java` needs a wrapper method. 
 - See `CellMatchers.java`.
 - High ROI and applicable across languages.
 #### Create Intents

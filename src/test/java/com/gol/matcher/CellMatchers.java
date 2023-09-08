@@ -72,7 +72,7 @@ public class CellMatchers {
         return dies(next_generation);
     }
 
-    public static Matcher<? super Cell> dies_of_overcrowding(final Grid next_generation) {
+    public static Matcher<? super Cell> dies_of_overpopulation(final Grid next_generation) {
         return dies(next_generation);
     }
 
