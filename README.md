@@ -7,7 +7,7 @@ Show me an example.
 
 ```java
 // Domain Rule: Any live cell with fewer than two live neighbours dies, as if by underpopulation. 
-        assertThat( live_cell_with_fewer_than_two_live_neighbours, dies_of_under_population(next_generation));
+        assertThat( live_cell_with_fewer_than_two_live_neighbours, dies_of_underpopulation(next_generation));
 
 /** System Behavior */
   a(BEEHIVE).remains_unchanged().after(1).generations();

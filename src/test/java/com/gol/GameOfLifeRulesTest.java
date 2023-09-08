@@ -70,7 +70,7 @@ public class GameOfLifeRulesTest {
 
         Grid next_generation = old_generation.next_generation();
 
-        assertThat( live_cell_with_fewer_than_two_live_neighbours, dies_of_under_population(next_generation));
+        assertThat( live_cell_with_fewer_than_two_live_neighbours, dies_of_underpopulation(next_generation));
     }
 
     @Test
@@ -100,7 +100,7 @@ public class GameOfLifeRulesTest {
 
         Grid new_generation = old_generation.next_generation();
 
-        assertThat(live_cell_with_more_than_three_neighbours, dies_of_over_crowding(new_generation));
+        assertThat(live_cell_with_more_than_three_neighbours, dies_of_overcrowding(new_generation));
     }
 
     @Test

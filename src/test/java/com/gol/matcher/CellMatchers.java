@@ -68,11 +68,11 @@ public class CellMatchers {
         };
     }
 
-    public static Matcher<? super Cell> dies_of_under_population(final Grid next_generation) {
+    public static Matcher<? super Cell> dies_of_underpopulation(final Grid next_generation) {
         return dies(next_generation);
     }
 
-    public static Matcher<? super Cell> dies_of_over_crowding(final Grid next_generation) {
+    public static Matcher<? super Cell> dies_of_overcrowding(final Grid next_generation) {
         return dies(next_generation);
     }
 
