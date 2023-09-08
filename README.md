@@ -32,7 +32,7 @@ Let's explore this exciting world of DSLs and Fluent Interfaces together!
 
 We will solve this problem to demonstrate the techniques. [Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
-Here is some Domain Rules Copied from the above link and corresponding code snippets.
+Here are some Domain Rules copied from the above link and corresponding code snippets.
 
 `Any live cell with fewer than two live neighbours dies, as if by underpopulation.`
 ```java 
