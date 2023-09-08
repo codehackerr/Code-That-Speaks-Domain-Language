@@ -20,7 +20,7 @@ Then, there's the structure—classes, modules, and packages—these help us org
 But here's the catch: all these techniques only get us so far, especially when it comes to capturing the intricate behaviors and rules of the real-world problem we're tackling.
 
 That's where the magic happens!
-We can add a layer of what we call "[Domain-Specific Language](https://martinfowler.com/dsl.html#:~:text=A%20Domain%2DSpecific%20Language%20(DSL,as%20computing%20has%20been%20done.)" (DSL) on top of our code. Think of it as a special dialect that bridges the gap between our code and the real-world problem.
+We can add a layer of what we call [Domain Specific Language](https://martinfowler.com/dsl.html#:~:text=A%20Domain%2DSpecific%20Language%20\(DSL,as%20computing%20has%20been%20done.\)) (DSL) on top of our code. Think of it as a special dialect that bridges the gap between our code and the real-world problem.
 Another technique is clever encapsulation of intent in language structure.
 
 But wait, it gets even cooler! We're going to dive into a lightweight approach here.
