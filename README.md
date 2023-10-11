@@ -3,6 +3,8 @@
 
 ### Code that speaks domain language
 
+#### Disclaimer: Example follows a more puristic approach for demonstration. In big and complex projects, practical take away is to create reusable code constructs closely mirroring domain terminology.
+
 Show me an example.
 
 ```java
