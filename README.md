@@ -63,7 +63,7 @@ While both these examples are implemented in tests, the concepts are equally app
 #### Naming
 - Name variables, classes, methods using domain vocabulary.
 - Biggest ROI and applicable irrespective of language context.
-- Need to be conscious to use the domain terminology. It's easy your interpretations than the actual domain. Eg: I used overcrowding for overpopulation
+- Need to be conscious to use the domain terminology. It's easy to use interpretations than the actual domain. Eg: I used overcrowding for overpopulation
 #### Create Intents
 - Wrap domain behaviors and rules as intents.
 - Hamcrest Matcher is an excellent example of this. See `CellMatchers.java`
