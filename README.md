@@ -3,7 +3,7 @@
 
 ### Code that speaks domain language
 
-#### Disclaimer: Example follows a more puristic approach for demonstration. In big and complex projects, practical take away is to create reusable code constructs closely mirroring domain terminology.
+#### Disclaimer: Example follows a more puristic approach for demonstration.
 
 Show me an example.
 
@@ -13,27 +13,14 @@ assertThat( live_cell_with_fewer_than_two_live_neighbours, dies_of_underpopulati
 
 /** System Behavior */
 a(BEEHIVE).remains_unchanged().after(1).generations();
-``` 
+```
 
-Lets spent some time on the whys and whats before we get back to the above code implementations.
+Code and domain often speak different languages making it difficult to understand and map domain behaviors to code.
+This repo shows examples and techniques to make code stay close to domain language.
 
-Ever felt like understanding code is like trying to translate between two different languages? You're not alone! The code world and the real-world problem it's supposed to solve often seem worlds apart. It's like trying to fit a square peg into a round hole.
 
-To make this connection work, we rely on some key tricks. First, there's the art of naming things right—variables, objects, methods—they all need names that speak the language of the problem we're solving.
-Then, there's the structure—classes, modules, and packages—these help us organize our code neatly resembling domain concepts.
 
-But here's the catch: all these techniques only get us so far, especially when it comes to capturing the intricate behaviors and rules of the real-world problem we're tackling.
-
-That's where the magic happens!
-We can add a layer of what we call [Domain Specific Language](https://martinfowler.com/dsl.html#:~:text=A%20Domain%2DSpecific%20Language%20\(DSL,as%20computing%20has%20been%20done.\)) (DSL) on top of our code. Think of it as a special dialect that bridges the gap between our code and the real-world problem.
-Another technique is clever encapsulation of domain behavior(intent) in language structure.
-
-In this sample implementation, I used Internal DSLs with Fluent Interfaces 
-and [Hamcrest matchers](https://hamcrest.org/JavaHamcrest/) to create domain vocabulary and glue them together.
-
-Let's explore this a bit together!
-
-We will solve this problem to demonstrate the techniques. [Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+The repo solves [Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
 Here are some Domain Rules copied from the above link and corresponding code snippets.
 
